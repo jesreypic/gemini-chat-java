@@ -27,22 +27,21 @@ Cliente de Inteligencia Artificial para consola desarrollado en **Java puro (Jav
    ```bash
    git clone [https://github.com/jesreypic/gemini-chat-java.git](https://github.com/jesreypic/gemini-chat-java.git)
    cd gemini-chat-java
+   ```
 
-   Configurar la API Key:
-   
-2. Crea un archivo llamado config.properties en la raíz del proyecto con la siguiente estructura:
+2. **Configurar la API Key:**  
+   Crea un archivo llamado `config.properties` en la raíz del proyecto con la siguiente línea:
+   ```properties
+   API_KEY=tu_api_key_aqui
+   ```
 
-API_KEY=tu_api_key_aqui
+3. **Ejecución:**
+   - Abre el proyecto en tu IDE preferido (Eclipse, IntelliJ IDEA, VS Code).
+   - Ejecuta la clase `Cliente_IA.java`.
+   - Escribe `salir` en la consola en cualquier momento para finalizar la sesión.
 
+---
 
-3. Ejecución:
+## Autor
 
-Abre el proyecto en tu IDE preferido (Eclipse, IntelliJ IDEA, VS Code).
-
-Ejecuta la clase Cliente_IA.java.
-
-Escribe salir en la consola en cualquier momento para finalizar la sesión.
-
-
-Autor
-Jesús Reyes - Estudiante de Desarrollo de Aplicaciones Multiplataforma (DAM).
+- **Jesús Reyes** - Estudiante de Desarrollo de Aplicaciones Multiplataforma (DAM).

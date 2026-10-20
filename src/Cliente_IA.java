@@ -49,6 +49,8 @@ public class Cliente_IA {
                 .build();
 
         System.out.println("=== CHAT CON IA EN JAVA (Escribe 'salir' para terminar) ===");
+        
+        String ultimaRespuestaIA = "";
 
         while (true) {
             System.out.print("\nTú: ");
@@ -84,6 +86,29 @@ public class Cliente_IA {
                     continue;
                 }
             }
+            
+         // Comando para exportar la última respuesta a un archivo local
+            if (prompt.startsWith("/guardar ")) {
+                if (ultimaRespuestaIA.isEmpty()) {
+                    System.err.println("Error: Aún no hay ninguna respuesta de la IA para guardar.");
+                    continue;
+                }
+
+                String nombreDestino = prompt.substring(9).trim().replace("\"", "");
+                if (nombreDestino.isEmpty()) {
+                    System.err.println("Error: Debes indicar el nombre del archivo. Ej: /guardar informe.md");
+                    continue;
+                }
+
+                try {
+                    Path rutaSalida = Path.of(nombreDestino);
+                    Files.writeString(rutaSalida, ultimaRespuestaIA);
+                    System.out.println("-> Éxito: Contenido exportado correctamente en: " + rutaSalida.toAbsolutePath());
+                } catch (Exception e) {
+                    System.err.println("Error al escribir el archivo en disco: " + e.getMessage());
+                }
+                continue;
+            }
 
             historial.add(new Mensaje("user", prompt));
             String cuerpoJson = construirJsonHistorial(historial);
@@ -109,6 +134,7 @@ public class Cliente_IA {
 
                     if (respuesta.statusCode() == 200) {
                         String textoRespuesta = extraerTexto(respuesta.body());
+                        ultimaRespuestaIA = textoRespuesta;
                         System.out.println("\nIA (" + modelo + "): " + textoRespuesta);
                         historial.add(new Mensaje("model", textoRespuesta));
                         resuelto = true;

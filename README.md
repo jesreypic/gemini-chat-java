@@ -6,9 +6,9 @@ Cliente de Inteligencia Artificial para consola desarrollado en **Java puro (Jav
 
 ## Características Técnicas
 
-- **Java Nativo (Zero Dependencies):** Uso exclusivo de la biblioteca estándar de Java (`java.net.http.HttpClient`, `HttpRequest`, `HttpResponse`) para orquestar peticiones HTTP.
+- **Java Nativo (Zero Dependencies):** Uso exclusivo de la biblioteca estándar de Java (`java.net.http.HttpClient`, `HttpRequest`, `HttpResponse`) para orquestar peticiones HTTP asíncronas/síncronas.
 - **Memoria Conversacional (Context Window):** Mantenimiento del historial acumulado (`user` / `model`) serializado dinámicamente en formato JSON para dotar al asistente de contexto en cada turno.
-- **Parser Iterativo Lineal:** Extracción y saneamiento de texto en tiempo lineal sin recursión, diseñado para evitar desbordamientos de pila (`StackOverflowError`) asociados al backtracking de expresiones regulares complejas.
+- **Parser Iterativo Lineal:** Extracción y saneamiento de texto en tiempo lineal $O(n)$ sin recursión, diseñado para evitar desbordamientos de pila (`StackOverflowError`) asociados al backtracking de expresiones regulares complejas.
 - **Tolerancia a Fallos y Fallback:** Lógica de degradación elegante que alterna automáticamente entre modelos (`gemini-3-flash-preview`, `gemini-3.8-flash`, etc.) ante incidencias de saturación de servidores (HTTP 503) o límites de tasa (HTTP 429).
 - **Seguridad y Aislamiento de Credenciales:** Carga dinámica de la API Key mediante `Properties` desde un archivo local `config.properties` excluido del control de versiones vía `.gitignore`.
 
@@ -27,21 +27,3 @@ Cliente de Inteligencia Artificial para consola desarrollado en **Java puro (Jav
    ```bash
    git clone [https://github.com/jesreypic/gemini-chat-java.git](https://github.com/jesreypic/gemini-chat-java.git)
    cd gemini-chat-java
-   ```
-
-2. **Configurar la API Key:**  
-   Crea un archivo llamado `config.properties` en la raíz del proyecto con la siguiente línea:
-   ```properties
-   API_KEY=tu_api_key_aqui
-   ```
-
-3. **Ejecución:**
-   - Abre el proyecto en tu IDE preferido (Eclipse, IntelliJ IDEA, VS Code).
-   - Ejecuta la clase `Cliente_IA.java`.
-   - Escribe `salir` en la consola en cualquier momento para finalizar la sesión.
-
----
-
-## Autor
-
-- **Jesús Reyes** - Estudiante de Desarrollo de Aplicaciones Multiplataforma (DAM).

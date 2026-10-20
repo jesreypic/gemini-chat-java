@@ -11,6 +11,8 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Cliente_IA {
 
@@ -59,6 +61,28 @@ public class Cliente_IA {
 
             if (prompt.isEmpty()) {
                 continue;
+            }
+            
+         // Comando para leer archivos locales
+            if (prompt.startsWith("/leer ")) {
+            	String rutaArchivo = prompt.substring(6).trim().replace("\"", "");
+                try {
+                    Path path = Path.of(rutaArchivo);
+                    if (!Files.exists(path)) {
+                        System.err.println("Error: El archivo no existe en la ruta indicada: " + rutaArchivo);
+                        continue;
+                    }
+                    
+                    String contenidoArchivo = Files.readString(path);
+                    System.out.println("-> Archivo cargado (" + contenidoArchivo.length() + " caracteres). Enviando al modelo...");
+                    
+                    prompt = "He cargado el archivo '" + path.getFileName() + "'. Su contenido es el siguiente:\n\n" 
+                           + contenidoArchivo 
+                           + "\n\nPor favor, confírmame que lo has leído y hazme un breve resumen de lo que contiene.";
+                } catch (Exception e) {
+                    System.err.println("Error al leer el archivo: " + e.getMessage());
+                    continue;
+                }
             }
 
             historial.add(new Mensaje("user", prompt));
